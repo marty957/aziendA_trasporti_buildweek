@@ -7,6 +7,8 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+//@NamedQuery(name = "TitoloDiViaggio.bigiettiEmessi", query = "SELECT neg FROM TitoloDiViaggi t "+
+//"WHERE t.emissione BETWEEN 2024/06/12 AND CURRENT_DATE")
 public abstract  class TitoloDiViaggio {
 
     @Id
@@ -16,16 +18,18 @@ public abstract  class TitoloDiViaggio {
     private String codiceBiglietto;
     @Column(nullable = false)
     private LocalDate emissione;
+    @ManyToOne
+    @JoinColumn(name = "puntovendita_id", nullable = false)
+    private PuntoVendita neg;
 
-    @ManyToMany(mappedBy = "listaVendita")
-    private List<PuntoVendita> puntoVendita=new ArrayList<>();
 
     public TitoloDiViaggio() {
     }
 
-    public TitoloDiViaggio(String codiceBiglietto, LocalDate emissione) {
+    public TitoloDiViaggio(String codiceBiglietto, LocalDate emissione, PuntoVendita neg) {
         this.codiceBiglietto = codiceBiglietto;
         this.emissione = emissione;
+        this.neg = neg;
     }
 
     public long getId() {
@@ -52,13 +56,16 @@ public abstract  class TitoloDiViaggio {
         this.emissione = emissione;
     }
 
-    public List<PuntoVendita> getPuntoVendita() {
-        return puntoVendita;
+    public PuntoVendita getNeg() {
+        return neg;
     }
 
-    public void setPuntoVendita(List<PuntoVendita> puntoVendita) {
-        this.puntoVendita = puntoVendita;
+    public void setNeg(PuntoVendita neg) {
+        this.neg = neg;
     }
+
+
+
 
     @Override
     public String toString() {
@@ -66,7 +73,7 @@ public abstract  class TitoloDiViaggio {
                 "id=" + id +
                 ", codiceBiglietto='" + codiceBiglietto + '\'' +
                 ", emissione=" + emissione +
-                ", puntoVendita=" + puntoVendita +
+                ", neg=" + neg +
                 '}';
     }
 }

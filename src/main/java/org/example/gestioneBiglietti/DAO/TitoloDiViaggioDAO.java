@@ -3,6 +3,8 @@ package org.example.gestioneBiglietti.DAO;
 import org.example.gestioneBiglietti.entities.TitoloDiViaggio;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 
 public class TitoloDiViaggioDAO {
     private EntityManager em;
@@ -16,4 +18,8 @@ public class TitoloDiViaggioDAO {
         em.persist(t);
         em.getTransaction().commit();
     }
+
+//    public List<TitoloDiViaggio> bigliettiEmessi(){
+//        Query q= em.createNamedQuery();
+//    }
 }

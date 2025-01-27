@@ -1,6 +1,7 @@
 package org.example.gestioneBiglietti.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,8 @@ public class PuntoVendita {
     private long id_punto_vendita;
     private String indirizzo;
 
-    @ManyToMany
-    @JoinTable(
-            name = "titoli_di_viaggi_venduti",
-            joinColumns = @JoinColumn(name = "titoloViaggio_id"),
-            inverseJoinColumns = @JoinColumn(name = "puntovendita_id")
-    )
-    private List<TitoloDiViaggio> listaVendita=new ArrayList<>();
+    @OneToMany(mappedBy = "neg")
+    private List<TitoloDiViaggio> listaVendita = new ArrayList<>();
 
     public PuntoVendita() {
     }
@@ -35,6 +31,27 @@ public class PuntoVendita {
 
     public void setId_punto_vendita(long id_punto_vendita) {
         this.id_punto_vendita = id_punto_vendita;
+    }
+
+    public List<TitoloDiViaggio> getListaVendita() {
+        return listaVendita;
+    }
+
+    public void setListaVendita(List<TitoloDiViaggio> listaVendita) {
+        this.listaVendita = listaVendita;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public int bigliettiEmessi( LocalDate inizio, LocalDate fine){
+       return(int) listaVendita.stream().filter(ele->ele.getEmissione().isAfter(inizio)&&
+                ele.getEmissione().isBefore(fine)).count();
     }
 
     @Override

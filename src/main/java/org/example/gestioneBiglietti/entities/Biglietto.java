@@ -12,8 +12,8 @@ public class Biglietto extends TitoloDiViaggio {
     public Biglietto() {
     }
 
-    public Biglietto(String codiceBiglietto, LocalDate emissione, boolean statoBiglietto) {
-        super(codiceBiglietto, emissione);
+    public Biglietto(String codiceBiglietto, LocalDate emissione, PuntoVendita neg, boolean statoBiglietto) {
+        super(codiceBiglietto, emissione, neg);
         this.statoBiglietto = statoBiglietto;
     }
 

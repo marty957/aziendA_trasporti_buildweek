@@ -17,11 +17,11 @@ public class Abbonamento extends TitoloDiViaggio {
     public Abbonamento() {
     }
 
-    public Abbonamento(String codiceBiglietto, LocalDate emissione, LocalDate dataScadenza, Periodicita periodicita, Tessera tessera) {
-        super(codiceBiglietto, emissione);
+    public Abbonamento(String codiceBiglietto, LocalDate emissione, PuntoVendita neg, LocalDate dataScadenza, Tessera tessera, Periodicita periodicita) {
+        super(codiceBiglietto, emissione, neg);
         this.dataScadenza = dataScadenza;
-        this.periodicita = periodicita;
         this.tessera = tessera;
+        this.periodicita = periodicita;
     }
 
     public LocalDate getDataScadenza() {
